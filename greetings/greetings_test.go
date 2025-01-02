@@ -23,3 +23,33 @@ func TestHelloEmpty(t *testing.T) {
 		t.Fatalf(`Hello("") = %q, %v, want "", error`, msg, err)
 	}
 }
+func TestHellos(t *testing.T) {
+	names := []string{"Ale", "Bob", "Cathy"}
+	want := map[string]*regexp.Regexp{
+		"Ale":   regexp.MustCompile(`\bAle\b`),
+		"Bob":   regexp.MustCompile(`\bBob\b`),
+		"Cathy": regexp.MustCompile(`\bCathy\b`),
+	}
+
+	messages, err := Hellos(names)
+
+	if err != nil {
+		t.Fatalf(`Hellos(%v) returned error: %v`, names, err)
+	}
+
+	for name, msg := range messages {
+		if !want[name].MatchString(msg) {
+			t.Fatalf(`Hellos(%v) = %q, want match for %#q`, name, msg, want[name])
+		}
+	}
+}
+
+func TestHellosEmpty(t *testing.T) {
+	names := []string{"Ale", "", "Cathy"}
+
+	_, err := Hellos(names)
+
+	if err == nil {
+		t.Fatalf(`Hellos(%v) = nil, want error`, names)
+	}
+}
