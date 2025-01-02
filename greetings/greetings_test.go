@@ -24,11 +24,11 @@ func TestHelloEmpty(t *testing.T) {
 	}
 }
 func TestHellos(t *testing.T) {
-	names := []string{"Ale", "Bob", "Cathy"}
+	names := []string{"Ale", "Aarón", "Hugo"}
 	want := map[string]*regexp.Regexp{
 		"Ale":   regexp.MustCompile(`\bAle\b`),
-		"Bob":   regexp.MustCompile(`\bBob\b`),
-		"Cathy": regexp.MustCompile(`\bCathy\b`),
+		"Aarón": regexp.MustCompile(`\bAarón\b`),
+		"Hugo":  regexp.MustCompile(`\bHugo\b`),
 	}
 
 	messages, err := Hellos(names)
@@ -45,7 +45,7 @@ func TestHellos(t *testing.T) {
 }
 
 func TestHellosEmpty(t *testing.T) {
-	names := []string{"Ale", "", "Cathy"}
+	names := []string{"Ale", "", "Aarón"}
 
 	_, err := Hellos(names)
 
